@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+import InputComponent from './InputComponent';
 import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+    
+    const [inputMessage,setInputMessage] = useState("");
+    const [messagesArray,setMessagesArray] = useState([]);
+    const onSendMessage = () => {
+        setMessagesArray((prev) => [...prev,inputMessage]);
+        setInputMessage("");
+    };
+    
+    useEffect (() => {
+        window.addEventListener("keypress",({key}) => {
+            if (key == "Enter" ) {
+            onSendMessage();                  
+    }});
+    },[onSendMessage]);
+    
+    
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <div className="mainWrapper" style ={{
+                                            width: 300,
+                                            height: 200,
+                                            color: 'yellow',                                     
+                                            display: 'block',
+                                            }}>
+  
+      <div className = "messageList">
+      {messagesArray.map((message,i) => (
+        <div key = {i} > {message} </div>
+        ))}
+      </div>
+      <div className = "InputWrapper">
+      <InputComponent value = {inputMessage} onChange = {setInputMessage} />
+      <button onClick={onSendMessage}>Отправить</button>
+      </div>
+      </div>
+
     </div>
   );
 }
