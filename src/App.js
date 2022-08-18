@@ -1,6 +1,5 @@
-
 import './App.css';
-import React, { useState, useEffect,useCallback, useRef } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 
 function App() {
         
@@ -9,15 +8,17 @@ function App() {
     const [messagesArray,setMessagesArray] = useState([]);
     
     const onSendMessage = useCallback( () => {
-        setMessagesArray((prev) => [...prev,inputMessage]);        
-        setInputMessage("");        
+        setMessagesArray((prev) => [...prev,inputMessage]);     /* Не смог добавить автора сообщения */   
+        setInputMessage("");     
     }, [inputMessage]);
-    
-   useEffect (() => {
-       if (messagesArray.length > 0 ) {console.log("Message was sent!");}
      
-   },[messagesArray]);    
-    
+    useEffect(() => {
+    const chatBotTimeout = setTimeout(() => {                   
+          console.log("Chat-Bot answer...");          /* Я не смог ввести ответ в input, не разобрался как */
+    }, 1500);
+    return () => clearTimeout(chatBotTimeout);
+  }, [messagesArray]);
+
   return (
     <div className="App">
 
@@ -31,13 +32,14 @@ function App() {
         ))}
       </div>
       <div className = "inputWrapper">
+      Введите сообщение >>
         <
-            input className = "input" value = {inputMessage} onChange = {(e) => setInputMessage(e.target.value)}
+            input className = "input"             
+            value = {inputMessage} onChange = {(e) => setInputMessage(e.target.value)}
             onKeyDown = {({key}) => {
-                if (key === 'Enter') {
-                 
+                if (key === 'Enter') {                 
                     onSendMessage();                
-        }}}/>;
+        }}}/>
     
       <button onClick={onSendMessage}>Отправить</button>
       </div>
