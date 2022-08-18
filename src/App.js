@@ -1,45 +1,48 @@
-import InputComponent from './InputComponent';
+
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback, useRef } from 'react';
 
 function App() {
-    
+        
     const [inputMessage,setInputMessage] = useState("");
+    
     const [messagesArray,setMessagesArray] = useState([]);
-    const onSendMessage = () => {
-        setMessagesArray((prev) => [...prev,inputMessage]);
-        setInputMessage("");
-    };
     
-    useEffect (() => {
-        window.addEventListener("keypress",({key}) => {
-            if (key == "Enter" ) {
-            onSendMessage();                  
-    }});
-    },[onSendMessage]);
+    const onSendMessage = useCallback( () => {
+        setMessagesArray((prev) => [...prev,inputMessage]);        
+        setInputMessage("");        
+    }, [inputMessage]);
     
+   useEffect (() => {
+       if (messagesArray.length > 0 ) {console.log("Message was sent!");}
+     
+   },[messagesArray]);    
     
   return (
     <div className="App">
 
-      <div className="mainWrapper" style ={{
-                                            width: 300,
-                                            height: 200,
-                                            color: 'yellow',                                     
-                                            display: 'block',
-                                            }}>
+      <div className="mainWrapper">
   
       <div className = "messageList">
       {messagesArray.map((message,i) => (
-        <div key = {i} > {message} </div>
+        <div key = {i} >
+        <span className = "message"> {message} </span>
+        </div>
         ))}
       </div>
-      <div className = "InputWrapper">
-      <InputComponent value = {inputMessage} onChange = {setInputMessage} />
+      <div className = "inputWrapper">
+        <
+            input className = "input" value = {inputMessage} onChange = {(e) => setInputMessage(e.target.value)}
+            onKeyDown = {({key}) => {
+                if (key === 'Enter') {
+                 
+                    onSendMessage();                
+        }}}/>;
+    
       <button onClick={onSendMessage}>Отправить</button>
       </div>
       </div>
-
+  
     </div>
   );
 }
