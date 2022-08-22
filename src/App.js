@@ -5,7 +5,18 @@ import './App.css';
 
 function App() {
 
-  return <Button variant="contained">Hello World</Button>;
+  const showMessage = true;
+  return  (
+        <div  className="App">
+          {  showMessage ? (
+              <>
+              </>
+          ) : (
+              <>
+              </>
+          )}
+        </div>
+  );
 }
 
 export default App;
