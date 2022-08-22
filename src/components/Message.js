@@ -1,19 +1,31 @@
-import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
+import {TextField} from "@mui/material";
+import classes from "../styles/Message.scss";
+import sendButtonImg from '../styles/send_message.svg';
 
-const useStyles = makeStyles({
-    root: {
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        border: 0,
-        borderRadius: 3,
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-        color: 'white',
-        height: 48,
-        padding: '0 30px',
-    },
-});
+export default function Message({ inputMessage ,setInputMessage, onSendMessage}) {
 
-export default function Message() {
-    const classes = useStyles();
-    return <Button className={classes.root}>Push</Button>;
+    return (
+        <div className="inputWrapper">
+             <TextField
+
+            id="standard-multiline-flexible"
+            label="Введите сообщение..."
+            multiline
+            maxRows={3}
+            className='input'
+            autoFocus={true}
+            required value = {inputMessage} onChange = {(e) => setInputMessage(e.target.value)}
+            onKeyDown={({ key }) => {
+                if (key === 'Enter') {
+                    onSendMessage();
+                }
+            }}
+            >
+         </TextField>
+        <Button className={classes.sendButton}>
+            <img src={sendButtonImg} alt="send-message" />
+        </Button>
+         </div>
+    )
 }
