@@ -1,29 +1,19 @@
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/styles';
-import { Send } from '@material-ui/icons';
-import classes from "*.module.scss";
+import { makeStyles } from '@mui/styles';
+import Button from '@mui/material/Button';
 
-const useStyles = makeStyles(() => ({
-    input: {
-        fontFamily: 'Roboto',
-        fontSize: '16px',
-        fontWeight: 300,
-        width: '90%',
-        margin: '0 15px 15px 15px',
+const useStyles = makeStyles({
+    root: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
     },
-    sendButton: {
-        margin: "0px 10px",
-    },
-}));
+});
 
-function Message (props)
-{
-    return (
-        <Button variant ="contained" color = "primary" className ={classes} >
-            Отправить
-        </Button>
-    );
+export default function Message() {
+    const classes = useStyles();
+    return <Button className={classes.root}>Push</Button>;
 }
-
-export default Message;
