@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import PropTypes from "prop-types";
-
+import { ListItem } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   messageList: {
@@ -27,13 +27,14 @@ const MessageList = ({ messagesArray }) => {
 
   return (
     <div className={classes.messageList}>
+
       {messagesArray.map((message, i) => (
-        <div
+        <ListItem
           key={i}
           className={classes.message}
         >
           {message.text}
-        </div>
+        </ListItem>
       ))}
     </div>
   );
