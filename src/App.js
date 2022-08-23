@@ -38,7 +38,7 @@ function App() {
                     setInputMessage('');
                 }, 1500);
         };
-        }, [ messagesArray]);
+        }, [ inputMessage, messagesArray]);
 
   return  (
         <div  className="App">
