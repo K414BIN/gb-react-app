@@ -16,6 +16,7 @@ function App() {
                 {
                     trimmedMessageText,
                     author: "user",
+                    time: new Date().toLocaleString()
                 },
             ]);
             setInputMessage('');
@@ -23,19 +24,21 @@ function App() {
     };
 
     useEffect(() => {
-        if (messagesArray.length > 0) {
+        const isMessageFromBot = inputMessage.author === 'Chat-bot';
+        if (messagesArray.length > 0 && isMessageFromBot) {
             setTimeout(() => {
 
-                setMessagesArray(prev => [...prev,
-                    {
-                        inputMessage : 'Сообщение отправлено!',
-                        author: 'Chat-bot',
-                    },
-                ]);
-                setInputMessage('');
-            }, 1500);
+                    setMessagesArray(prev => [...prev,
+                        {
+                            inputMessage: 'Сообщение отправлено!',
+                            author: 'Chat-bot',
+                            time: new Date().toLocaleString()
+                        },
+                    ]);
+                    setInputMessage('');
+                }, 1500);
         };
-    }, [ messagesArray]);
+        }, [ messagesArray]);
 
   return  (
         <div  className="App">

@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     margin: "10px 5px",
     borderRadius: "30px",
   },
+  text: {
+    color : "black",
+  },
 }));
 
 const MessageList = ({ messagesArray }) => {

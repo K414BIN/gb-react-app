@@ -8,14 +8,11 @@ export default function Message({ inputMessage ,setInputMessage, onSendMessage})
     return (
         <div className="inputWrapper">
              <TextField
-
             id="standard-multiline-flexible"
             label="Введите сообщение..."
-            multiline
-            maxRows={3}
-            className='input'
+            className={classes.input}
             autoFocus={true}
-            required value = {inputMessage} onChange = {(e) => setInputMessage(e.target.value)}
+            required value = {inputMessage} onChange = { (e) => setInputMessage(e.target.value)}
             onKeyDown={({ key }) => {
                 if (key === 'Enter') {
                     onSendMessage();
