@@ -30,7 +30,7 @@ function App() {
 
                     setMessagesArray(prev => [...prev,
                         {
-                            inputMessage: 'Сообщение отправлено!',
+                            trimmedMessageText:'Сообщение отправлено!',
                             author: 'Chat-bot',
                             time: new Date().toLocaleString()
                         },

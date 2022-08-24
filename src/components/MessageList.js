@@ -33,7 +33,7 @@ const MessageList = ({ messagesArray }) => {
           key={i}
           className={classes.message}
         >
-          {message.text}
+          {message. trimmedMessageText}
         </ListItem>
       ))}
     </div>
