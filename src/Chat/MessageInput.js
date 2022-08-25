@@ -18,6 +18,7 @@ const MessageInput = ({ onSendMessage }) => {
             <input
                 className="input"
                 value={inputMessage}
+                type = 'text'
                 label="Введите сообщение"
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyDown={({ key }) => {
