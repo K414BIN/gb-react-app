@@ -8,6 +8,25 @@ import MessageInput from "./Chat/MessageInput";
 
 function App() {
 
+
+    const [inputMessage,setInputMessage] = useState("");
+    const [messagesArray,setMessagesArray] = useState([]);
+
+    const onSendMessage = useCallback( () => {
+        const trimmedMessageText = inputMessage.trim();
+        if  (trimmedMessageText !=="") {
+            setMessagesArray((prev) => [...prev,trimmedMessageText]);
+            setInputMessage("");
+        }}, [inputMessage]);
+
+    useEffect(() => {
+        if (messagesArray.length > 0) {
+            setTimeout(() => {
+                console.log("Message was sent");
+            }, 1500);
+        }
+    }, [messagesArray]);
+
   return (
       <div className="App">
 
@@ -20,6 +39,11 @@ function App() {
             </Route>
 
         </Routes>
+          <div className="chatWrapper">
+
+              <MessageList messagesArray={messagesArray} />
+              <MessageInput onSendMessage={onSendMessage} />
+          </div>
       </div>
   );
 }
@@ -59,6 +83,7 @@ const Chats = () => {
 
   const {chatID} = useParams();
   console.log(chatID);
+
   const [chats,setChats]= useState([
     {
       id:'chat1',
@@ -71,23 +96,6 @@ const Chats = () => {
   ])
 
     const id = chats.findIndex( x => x.id === chatID);
-    const [inputMessage,setInputMessage] = useState("");
-    const [messagesArray,setMessagesArray] = useState([]);
-
-    const onSendMessage = useCallback( () => {
-        const trimmedMessageText = inputMessage.trim();
-        if  (trimmedMessageText !=="") {
-            setMessagesArray((prev) => [...prev,trimmedMessageText]);
-            setInputMessage("");
-        }}, [inputMessage]);
-
-    useEffect(() => {
-        if (messagesArray.length > 0) {
-            setTimeout(() => {
-                console.log("Message was sent");
-            }, 1500);
-        }
-    }, [messagesArray]);
 
     return (
         <>
@@ -103,10 +111,7 @@ const Chats = () => {
                 chatID && chats[id]?.messages.map(e => <h2>{e}</h2>)
               }
             </div>
-              <div className="chatWrapper">
-                    <MessageList messagesArray={messagesArray} />
-                    <MessageInput onSendMessage={onSendMessage} />
-            </div>
+
           </main>
         </>
     )
