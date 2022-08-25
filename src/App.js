@@ -51,7 +51,7 @@ function Home() {
   return (
       <>
         <main>
-          <h2>Welcome to the homepage!</h2>
+          <h2 className="text-3xl font-bold underline">Welcome to the homepage!</h2>
           <p>Follow to chats</p>
         </main>
         <nav>
