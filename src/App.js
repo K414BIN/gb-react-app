@@ -1,24 +1,52 @@
-import logo from './logo.svg';
+import  {useEffect, useState} from 'react';
 import './App.css';
+import Message from "./components/Message";
+import MessageList from './components/MessageList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    const [inputMessage, setInputMessage] = useState('');
+    const [messagesArray, setMessagesArray] = useState([]);
+
+    const onSendMessage = () => {
+        const trimmedMessageText = inputMessage.trim();
+
+        if (trimmedMessageText !== '') {
+            setMessagesArray(prev => [...prev,
+                {
+                    trimmedMessageText,
+                    author: "user",
+                    time: new Date().toLocaleString()
+                },
+            ]);
+            setInputMessage('');
+        };
+    };
+
+    useEffect(() => {
+        const isMessageFromBot = inputMessage.author === 'Chat-bot';
+        if (messagesArray.length > 0 && isMessageFromBot) {
+            setTimeout(() => {
+
+                    setMessagesArray(prev => [...prev,
+                        {
+                            trimmedMessageText:'Сообщение отправлено!',
+                            author: 'Chat-bot',
+                            time: new Date().toLocaleString()
+                        },
+                    ]);
+                    setInputMessage('');
+                }, 1500);
+        };
+        }, [ inputMessage, messagesArray]);
+
+  return  (
+        <div  className="App">
+           <div className="mainWrapper">
+                  <MessageList messagesArray={messagesArray}  />
+                  <Message inputMessage={inputMessage} setInputMessage={setInputMessage} onSendMessage={onSendMessage}> </Message>
+           </div>
+        </div>
   );
 }
 
