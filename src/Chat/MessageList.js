@@ -12,6 +12,7 @@ const MessageList = ({ messagesArray }) => {
         </div>
     )
 }
+
 MessageList.propTypes = {
     messagesArray: PropTypes.array.isRequired,
 };
