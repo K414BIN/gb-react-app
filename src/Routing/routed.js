@@ -23,8 +23,9 @@ export default function Routed() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="/" element={<Navigate replace to="/home" />} />
-                        <Route path="/chats" element={<Chats />} />
+                        <Route path="/chats" element={<Chats />} >
                         <Route path=":chatID" element={<Navigate replace to="/chats" />} />
+                        </Route>
                     </Routes>
             </div>
         </BrowserRouter>

@@ -6,7 +6,7 @@ const MessageList = ({ messagesArray }) => {
         <div className="messageList">
             {messagesArray.map((message, i) => (
                 <div key={i}>
-                    <span className="message"> {message} </span>
+                 {message}
                 </div>
             ))}
         </div>
