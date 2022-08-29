@@ -1,130 +1,55 @@
-import * as React from "react";
-import {Routes, Route, Navigate, Link, useParams} from "react-router-dom";
-import "./App.css";
-import {useCallback, useEffect, useState} from "react";
-import MessageList from "./Chat/MessageList";
-import MessageInput from "./Chat/MessageInput";
+import './App.css';
+import { Button } from "@material-tailwind/react";
+import {useState} from 'react';
+import Routed from './Routing/routed';
+import * as PropTypes from "prop-types";
 
-
-function App() {
-
-    const [inputMessage,setInputMessage] = useState("");
-    const [messagesArray,setMessagesArray] = useState([]);
-
-    const onSendMessage = useCallback( () => {
-        const trimmedMessageText = inputMessage.trim();
-        if  (trimmedMessageText !=="") {
-            setMessagesArray((prev) => [...prev,{
-                trimmedMessageText,
-                author: "user"
-            }]);
-            setInputMessage("");
-        }}, [inputMessage]);
-
-    useEffect(() => {
-        if (messagesArray.length > 0) {
-            setTimeout(() => {
-                console.log("Message was sent");
-            }, 1500);
-        }
-    }, [messagesArray]);
-
+const ChildWithProps = ({state}) => {
     return (
-        <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Navigate replace to="/home" />} />
-            <Route path="/chats" element={<Chats />} />
-            <Route path=":chatID" element={<Navigate replace to="/chats" />} />
-        </Routes>
+        state ?
+            <h1 style={{color: '#FF0000'}}>Красный</h1> : <h1 style={{color: '#0000FF'}}>Синий</h1>
     );
 }
+ChildWithProps.propTypes = {state: PropTypes.bool};
 
-function Messages ( {messagesArray, trimmedMessageText,  onSendMessage}) {
+const Modal = ({children,setModal}) => {
+    const styles = {
+        width: '50%',
+        height: '50%',
+        background: '#fff'
+    }
+
     return (
-            <>
-                {/* Ошибка при передаче параметров в функцию - undefined messagesArray  */}
-                {/* и map не может работать с таким объектом.  */}
-                { /* <MessageList messagesArray={messagesArray}></MessageList>*/}
+        <div className='modalContainer' onClick={(e) =>{setModal(true)}}>
+            <div style={styles} onClick={(e) =>{e.stopPropagation()}}>
+                {children}
+            </div>
+        </div>
 
-              <MessageInput inputMessage={trimmedMessageText}  setInputMessage={messagesArray} sendAndRemoveInput={onSendMessage} ></MessageInput>
-            </>
-    )
+    );
+
 }
 
-function Home() {
+Modal.propTypes = {
+    setModal: PropTypes.func,
+    children: PropTypes.node
+};
+
+function App () {
+    const [color, setColor] = useState(false);
+    const [modal, setModal] = useState(false);
     return (
-        <>
-            <main>
-                <h2 className="text-3xl font-bold underline">Welcome to the homepage!</h2>
-            </main>
-            <nav>
-                <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-                    <Link to={"/chats"}>Chats</Link>
-                    <Link to={"/profile"}>Profile</Link>
-                </div>
-            </nav>
-        </>
+        <div className="App">
+            <Button  className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{setModal(true)}}>Открыть профиль</Button>
+            {
+                modal === true && <Modal setModal={setModal}>
+                    <div> Modal body </div>
+                </Modal>
+            }
+            <Button  className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>{setColor(prev => !prev)}}> Переключить цвет</Button>
+            <ChildWithProps state={color}></ChildWithProps>
+            <Routed />
+        </div>
     );
 }
-
-function Chats() {
-    const {chatID} = useParams();
-    console.log(chatID);
-
-    const [chats,setChats]= useState([
-        {
-            id:'chat1',
-            messages:["сообщение №1"]
-        },
-        {
-            id:'chat2',
-            messages: ["сообщение №1","сообщение №2","сообщение №3"]
-        },
-    ])
-    const id = chats.findIndex( x => x.id === chatID);
-
-    return (
-        <>
-            <h2 className="text-3xl font-bold underline">The page of chats.</h2>
-            <main style={{height: '50vh', background:'#51AFE',width:'100%'  }  } >
-                {/*НЕ работает. Я использовал MessageList для этого, но что-то пошло не так... */}
-                    <div>
-                        {
-                            chatID && chats[id]?.messages.map(e =>
-                            {return (
-                                <h2>{e}</h2>,
-                             <MessageList messagesArray={chats} />
-                            )})
-                        }
-                    </div>
-            <nav>
-                <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-                <Link to={"/home"}>Home</Link>
-                <Link to={'/chats/chat1'}>Chat1</Link>
-                <Link to={'/chats/chat2'}>Chat2</Link>
-                </div>
-            </nav>
-                <Messages />
-            </main>
-        </>
-    );
-}
-
-function Profile() {
-    return (
-            <>
-            <main>
-                <h2 className="text-3xl font-bold underline">The profile page.</h2>
-            </main>
-                <nav>
-                    <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-                        <Link to={"/home"}>Home</Link>
-                        <Link to={"/chats"}>Chats</Link>
-                    </div>
-                </nav>
-            </>
-    )
-}
-
 export default App;
