@@ -1,7 +1,8 @@
-import {removeChatAC,addChatAC} from "./chatActions";
-import {useDispatch} from "react-redux";
-import {useState} from "react";
 import Chat from "./Chat";
+import {useDispatch} from "react-redux";
+import React, {useState} from "react";
+
+import {addChatAC, removeChatAC} from "./chatActions";
 
 const Chats = () => {
 
@@ -23,15 +24,17 @@ const Chats = () => {
         dispatch(removeChatAC())
     }
 
+
+    let chats= " ";
     return (
         <>
             <div style={{width:'30%',padding:'50px',background:'#f9f9f9'}}>
-                {Chat.map(({title},id) => <div className='chatItem' key = {id} onClick={()=>{setcurrentChatID(id)}}>{title}</div>)}
+                {/*chats.map(({title},id) => <div className='chatItem' key = {id} onClick={()=>{setcurrentChatID(id)}}>{title}</div>)*/}
                 <button onClick={addChatHandler}>Добавить чат</button>
                 <button onClick={removeChatHandler}>Удалить чат</button>
             </div>
             <div style={{width:'70%',padding:'50px'}}>
-
+                {/*  <Chat id={currentChatID} messages = {chats[currentChatID].messages}></Chat>*/}
             </div>
         </>
 
@@ -39,3 +42,4 @@ const Chats = () => {
 }
 
 export default Chats;
+

@@ -1,4 +1,16 @@
-const MessageInput = ({sendAndRemoveInput ,inputMessage, setInputMessage}) => {
+import {useState} from "react";
+
+const MessageInput = ({ onSendMessage }) => {
+
+        const [inputMessage, setInputMessage] = useState("");
+
+        const sendAndRemoveInput = () => {
+            const trimmedMessageText = inputMessage.trim();
+            if (trimmedMessageText !== "") {
+                onSendMessage(trimmedMessageText);
+                setInputMessage("");
+            }
+        };
 
     return (
         <div className="inputWrapper">

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import moment from "moment";
 
 export const chatSlice = createSlice({
-  name: "chats",
+  name: "chat",
   initialState: {
     isAuthenticated: false,
     myUid: '',
@@ -10,11 +10,21 @@ export const chatSlice = createSlice({
     chats: {},
   },
   reducers: {
-
     addMessage: (state, action) => {
-      state[action.payload.id].messages.push(action.payload.data)
-        return state
-      },
+      const { chatId, messageText, authorId } = action.payload;
+
+      state.messages = {
+        ...state.messages,
+        [chatId]: [
+          ...state.messages[chatId],
+          {
+            timeStamp: moment().valueOf(),
+            authorId,
+            text: messageText,
+          },
+        ],
+      };
+    },
 
     setMessages: (state, action) => {
       const { chatId, messages } = action.payload;
@@ -25,12 +35,11 @@ export const chatSlice = createSlice({
       };
     },
 
-    setChat: (state, action) => {
-                  return  [ ...state,action.payload]
-    },
-
-    eraseChat: (state) => {
-      return  [ ...state.filter((e,i) => i < state.length-1 )]
+    setChats: (state, action) => {
+      state.chats = {
+        ...state.chats,
+        ...action.payload
+      };
     },
 
     changeIsAuth: (state, action) => {
@@ -43,6 +52,6 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { addMessage, changeIsAuth, setMessages, setMyUid, setChat,eraseChat } = chatSlice.actions;
+export const { addMessage, changeIsAuth, setMessages, setMyUid, setChats } = chatSlice.actions;
 
 export default chatSlice.reducer;

@@ -1,11 +1,11 @@
 import {BrowserRouter, Link, Navigate, Route, Routes} from "react-router-dom";
 import {useCallback, useState} from "react";
 import store from "../store";
+import MessageInput from "../Chat/MessageInput";
+import MessageList from "../Chat/MessageList";
+import Chats from "../Chat/Chats";
 
-function Chats() {
-    return null;
 
-}
 
 export default function Routed() {
  return (
