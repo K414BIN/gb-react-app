@@ -1,4 +1,4 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addMessage} from "./chatSlice";
 
 const Chat = (id, messages) => {
@@ -9,7 +9,7 @@ const Chat = (id, messages) => {
     return (
         <div>
             {messages.map((e,id)=> <div key={id}>{e}</div>)}
-            <button onClick={()=>{dispatch(addMessage({id:id,data:PLACEHOLDER_MESSAGE}))}}>Отправить</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{dispatch(addMessage({id:id,data:PLACEHOLDER_MESSAGE}))}}>Отправить</button>
 
         </div>
 

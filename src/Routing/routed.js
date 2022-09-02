@@ -1,6 +1,6 @@
 import {BrowserRouter, Link, Navigate, Route, Routes} from "react-router-dom";
 import {useCallback, useState} from "react";
-import store from "../store";
+import store from "../store/store";
 import MessageInput from "../Chat/MessageInput";
 import MessageList from "../Chat/MessageList";
 import Chats from "../Chat/Chats";
