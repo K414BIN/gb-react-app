@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {addMessage} from "./chatSlice";
+import {addMessage} from "../store/ChatReducer/selectors";
 
 const Chat = (id, messages) => {
 

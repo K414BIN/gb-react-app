@@ -1,9 +1,7 @@
 import {BrowserRouter, Link, Navigate, Route, Routes} from "react-router-dom";
-import {useCallback, useState} from "react";
-import store from "../store/store";
-import MessageInput from "../Chat/MessageInput";
-import MessageList from "../Chat/MessageList";
-import Chats from "../Chat/Chats";
+import Profile from "../store/profile";
+import Chats from "../store/chat";
+
 
 
 
@@ -42,45 +40,3 @@ function Home() {
     );
 }
 
-function Profile() {
-    const [dummy, setDummy] = useState();
-    const { showName, name } = store.getState().profile;
-    const dispatch = store.dispatch;
-
-    function toggleShowName() {
-        return null;
-    }
-
-    const setShowName = useCallback(() => {
-        dispatch(toggleShowName);
-
-        function setDummy(param) {
-            return null;
-        }
-
-        setDummy({});
-    }, [dispatch]);
-
-    return (
-             <div >
-                   <h4>Profile</h4>
-                     <label htmlFor="small-input"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">First name</label>
-                     <input type="text" id="small-input"
-                            className="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </input>
-                    <label htmlFor="small-input"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Last name</label>
-                    <input type="text" id="small-input"
-                        className="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </input>
-                     <input
-                         type="checkbox"
-                         checked={showName}
-                         value={showName}
-                         onChange={setShowName}
-                    />
-                    <span>Show Name</span>
-                    {showName && <div>{name}</div>}
-            </div>);
-}

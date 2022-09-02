@@ -2,8 +2,8 @@ import Chat from "./Chat";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useState} from "react";
 import {addChatAC, removeChatAC} from "./chatActions";
+import {getChatList} from "../store/chat/selectors";
 
-export const getChatList =(state ) => state.chats
 
 const Chats = () => {
 
@@ -30,12 +30,12 @@ const Chats = () => {
     return (
         <>
             <div >
-                {/*chats.map(({title},id) => <div className='chatItem' key = {id} onClick={()=>{setcurrentChatID(id)}}>{title}</div>)*/}
+                { chats.map(({title},id) => <div className='chatItem' key = {id} onClick={()=>{setcurrentChatID(id)}}>{title}</div>)}
                 <button  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" onClick={addChatHandler}>Добавить чат</button >
                 <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" onClick={removeChatHandler}>Удалить чат</button >
             </div>
             <div style={{width:'70%',padding:'50px'}}>
-                {/*<Chat id={currentChatID} messages = {chats[currentChatID].messages}></Chat>*/}
+                <Chat id={currentChatID} messages = {chats[currentChatID].messages}></Chat>
             </div>
         </>
 

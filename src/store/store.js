@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import profileReducer from '../Profile/profileSlice';
-import chatReducer from "../Chat/chatSlice";
-
+import {chatsReducer} from "./chat/reducer";
+import {profileReducer} from "./profile/reducer";
+import {messagesReducer} from "./messages/reducer";
 
 export default configureStore({
     reducer: {
         profile: profileReducer,
-        chat: chatReducer,
-        //messages: messagesReducer
+        chats: chatsReducer,
+        messages: messagesReducer
     },
-
 });
