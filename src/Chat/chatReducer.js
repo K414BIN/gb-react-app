@@ -1,4 +1,4 @@
-import {removeChatAC,addChatAC,ADD_CHAT,REMOVE_CHAT} from "./chatActions";
+import {ADD_CHAT,REMOVE_CHAT} from "./chatActions";
 
 
 const initialState = [

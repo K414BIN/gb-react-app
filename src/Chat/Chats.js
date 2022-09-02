@@ -8,7 +8,6 @@ export const getChatList =(state ) => state.chats
 const Chats = () => {
 
     const dispatch = useDispatch();
-   // const chats= useSelector(state => state.chats)
     const chats = useSelector(getChatList)
     const [currentChatID, setcurrentChatID] = useState(0);
 
