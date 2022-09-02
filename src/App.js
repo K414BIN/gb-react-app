@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useCallback, useContext, useEffect, useState} from "react";
+import Routed from "./Routing/routed";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const UserContext = React.createContext(null);
+const AdminContext = React.createContext(null);
+
+
+function App () {
+
+    const [user,setUser] = useState(null);
+
+    return (
+        <UserContext.Provider value = {user}>
+            <AdminContext.Provider value={'Admin'}>
+        <div className="App">
+            <Routed />
+        </div>
+            </AdminContext.Provider>
+            </UserContext.Provider >
+    );
 }
 
 export default App;

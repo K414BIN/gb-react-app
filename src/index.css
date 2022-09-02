@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+{/* Вместо Material-UI используется библиотека Tailwind CSS  */}
+{/* Material-UI не обновляют свою библиотеку, поэтому лучше пользоваться этой */}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
