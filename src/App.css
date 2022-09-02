@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.chatWrapper {
+  width: 480px;
+  height: 480px;
+  text-align: center;
+  background-color: darkgray;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+}
