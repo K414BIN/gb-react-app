@@ -1,8 +1,10 @@
 import { ADD_MESSAGE } from "./actions";
+import {string} from "prop-types";
 
 const initialState = {
     // {[chatId]: [{id, text, author}]}
-    messageList: {},
+    messages: {author: string, text: string},
+    //messages: [{id: author: string, text: string}]
 };
 
 export const messagesReducer = (state = initialState, action) => {

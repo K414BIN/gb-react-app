@@ -1,9 +1,13 @@
 import './App.css';
-import React, {  useState} from "react";
+import * as  React from "react";
 import {BrowserRouter, Link, Navigate, Route, Routes} from "react-router-dom";
-import Profile from "../store/profile";
-import Chats from "../store/chat";
+import Profile from "./store/profile";
+import Chats from "./store/chat";
+import {PersistGate} from "redux-persist/integration/react";
+import {Provider} from "react-redux";
+import { persistor, store} from "./store";
 
+{/*
 const UserContext = React.createContext(null);
 const AdminContext = React.createContext(null);
 
@@ -21,6 +25,7 @@ function App () {
             </UserContext.Provider >
     );
 }
+*/}
 
  function Routed() {
     return (
@@ -58,5 +63,14 @@ function Home() {
         </>
     );
 }
+
+function App () {
+return (
+    <Provider store={store}>
+        <PersistGate persistor={persistor} >
+            <Routed />
+        </PersistGate>
+    </Provider>
+)}
 
 export default App;
