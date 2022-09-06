@@ -1,6 +1,6 @@
 import {MessagesList} from "./MessagesList";
 import ChatList from "../chat/ChatList";
-
+import MessageInput from "./MessageInput";
 
 const MessageField = ({ chatId, messages, onAddMessage, onAddChat }) => (
     <section className="message-field">
@@ -10,9 +10,9 @@ const MessageField = ({ chatId, messages, onAddMessage, onAddChat }) => (
                 <ChatList chatId={chatId} onAddChat={onAddChat} />
             </div>
             <div>
-                <MessagesList messages={messages} />
+                <MessagesList  messagesArray={messages}/>
 
-                <Input onAddMessage={onAddMessage} />
+                <MessageInput onAddMessage={onAddMessage} />
             </div>
         </div>
     </section>

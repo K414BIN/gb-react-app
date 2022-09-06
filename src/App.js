@@ -67,7 +67,7 @@ function Home() {
 function App () {
 return (
     <Provider store={store}>
-        <PersistGate persistor={persistor} >
+        <PersistGate persistor={persistor}   >
             <Routed />
         </PersistGate>
     </Provider>
