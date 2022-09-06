@@ -29,6 +29,3 @@ export const MessagesList = ({ messagesArray }) => {
 MessagesList.propTypes = {
     messagesArray: PropTypes.array.isRequired,
 };
-
-
-

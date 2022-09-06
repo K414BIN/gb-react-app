@@ -6,19 +6,31 @@ import {getChatList} from "../chat/selectors";
 import {addMessage, AUTHORS} from "./actions";
 import MessageField from "./MessageField";
 import ChatList from "../chat/ChatList";
+import * as PropTypes from "prop-types";
+
+function Redirect(props) {
+    return null;
+}
+
+Redirect.propTypes = {to: PropTypes.string};
 
 const MessageFieldContainer = () => {
 
     const addMessageWithThunk = (chatId, message) => (dispatch, getState) => {
         dispatch(addMessage(chatId, message));
         if (message.author !== AUTHORS.BOT) {
-            const botMessage = {/* ... */};
+            const botMessage = 'Hello, I am Chat-bot!';
             setTimeout(() => dispatch(addMessage(chatId, botMessage)), 2000);
         }
     }
 
     const {chatId} = useParams();
     const chats = useSelector(getChatList);
+
+    function selectMessageList() {
+        return null
+    }
+
     const messageList = useSelector(selectMessageList);
     const dispatch = useDispatch();
 
@@ -36,7 +48,7 @@ const MessageFieldContainer = () => {
     if (!chatId) {
         return (
             <>
-                <ChatList chats={chats} chatId={null} onAddChat={() => {
+                <ChatList chats={chats} chatId={} onAddChat={() => {
                 }}/>
             </>
         );

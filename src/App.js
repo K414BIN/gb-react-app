@@ -7,26 +7,6 @@ import {PersistGate} from "redux-persist/integration/react";
 import {Provider} from "react-redux";
 import { persistor, store} from "./store";
 
-{/*
-const UserContext = React.createContext(null);
-const AdminContext = React.createContext(null);
-
-function App () {
-
-    const [user,setUser] = useState(null);
-
-    return (
-        <UserContext.Provider value = {user}>
-            <AdminContext.Provider value={'Admin'}>
-        <div className="App">
-            <Routed />
-        </div>
-            </AdminContext.Provider>
-            </UserContext.Provider >
-    );
-}
-*/}
-
  function Routed() {
     return (
         <BrowserRouter>
