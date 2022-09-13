@@ -1,4 +1,6 @@
 import React from "react";
+import {Avatar, Button, IconButton} from "@mui/material";
+
 
 const Register = () => {
     return (
@@ -10,9 +12,13 @@ const Register = () => {
                     <input type='text' placeholder='Тут должно быть имя'></input>
                     <input type='email' placeholder='e-mail'></input>
                     <input type='password' placeholder='пароль'></input>
-                    <input type='file' id = "file" style={{display: "none"}}></input>
+
                     <label htmlFor="file">
-                        <image src="" alt="Аватарка"></image>
+                        <Avatar  style={{color : "white"}} />
+                    <Button variant="contained" component="label">
+                        Загрузить аватарку
+                        <input hidden accept="image/*" multiple type="file" />
+                    </Button>
                     </label>
                     <button>Зарегистрироваться </button>
                 </form>
