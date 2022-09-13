@@ -1,11 +1,191 @@
-import  {useEffect, useRef, useState} from 'react';
-import Button from '@mui/material/Button';
-import PropTypes from "prop-types";
 import './App.css';
+import {Navigate, Route, Routes} from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useAuth } from './hooks/useAuth';
+import { useDispatch } from 'react-redux';
+import {  createUserThunk, loginThunk, removeUser } from './slices/userSlice';
+import { addPost, getAllPosts } from './firebase/crud';
 
 function App() {
 
-  return <Button variant="contained">Hello World</Button>;
+  return (
+    <div className="App">
+      <Routes>
+        <Route path='/' element = {<HomeView/>}/>
+        <Route path='/login' element = {<LoginView/>}/>
+        <Route path='/list' element = {<DataList/>}/>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
+
+//СТРАНИЦА ЛОГИНА
+const LoginView = () =>{
+  //хук для отслеживания аутентификации
+  const isAuth = useAuth().isAuth
+
+  //стейты для инпутов
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
+ 
+  const dispatch = useDispatch()
+ 
+  //если не аутентифицироват - возвращаем форму иначе Navigate to 
+  return !isAuth ? (
+    <div style={authStyles().container}>
+      <h1>Логин</h1>
+
+      <div style={authStyles().card}>
+          <input 
+          type = 'text'
+          placeholder = 'email'
+          value={email}
+          onChange = {(e)=>{setEmail(e.target.value)}}/>
+
+          <input 
+          type = 'password'
+          placeholder = 'password'
+          value={pass}
+          onChange = {(e)=>{setPass(e.target.value)}}/>
+
+          <div>
+              <button onClick={()=>{
+                dispatch(createUserThunk({email,pass}))}
+              }>Регистрация</button>
+
+              <button onClick={()=>{
+                dispatch(loginThunk({email,pass}))}
+              }>Войти</button>
+          </div>
+      </div>
+    </div>
+  ):
+  (<Navigate to={'/list'}/>)
+}
+
+//ГЛАВНАЯ
+const HomeView = () =>{
+  return(
+    <div>
+      <h1>Домашняя страница</h1>
+      <Navigate to = {'/login'}/>
+    </div>
+  )
+}
+
+//СТРАНИЦА С ПОСТАМИ
+const DataList = () =>{
+
+  const dispatch = useDispatch()
+  const isAuth = useAuth()
+
+  // стейты для получения данных из firestore (без middleware)
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState()
+
+  //состояние для хранения данных о посте, для последующей отправки в firestore
+  const [formData, setFormData] = useState({
+    body:'',
+    user:''
+  })
+  
+  //функция обрабатывающая загруженные данные о постах и добавляющая их в data state
+  const getPostsHandler = async() =>{
+      setLoading(true)
+      let data = await getAllPosts()
+      setLoading(false)
+      setData(data)
+  }
+
+  //сайд эффект(загрузка постов при монтировании компонента)
+  useEffect(()=>{
+      getPostsHandler()
+  },[])
+
+  return isAuth.isAuth ?(
+    <div>
+      {/* Шапка */}
+      <h1>Данные юзера</h1>
+      <div>
+        <h2>Привет,{isAuth.email}</h2>
+      </div>
+
+      {/* Кнопка разлогина разлогин происходит локально в приложении без middleware через обычный редьюсер*/}
+      <button onClick={()=>{dispatch(removeUser())}}>Выйти из аккаунта</button>
+      
+
+      {/* Контейнер постов */}
+      <div style={{minHeigth:'50vh'}}>
+
+        {/* Инпут для добавления постов */}
+        <PostForm formData={formData} setFormData = {setFormData}/>
+        {/* кнопка добавляет посты и выполняет повторый fetch постов чтобы отобразить обновленные данные */}
+        <button onClick={()=>{
+          addPost(formData)
+          getPostsHandler()
+        }}>Добавить пост</button>
+
+        {/* Список постов или лодер если грузим */}
+        {
+          loading ? <div>Грузим посты</div>
+          : <PostList data = {data} user ={isAuth.email}/>
+        }
+      </div>
+    </div>
+  ):<Navigate to={'/login'}/>
+}
+
+//СПИСОК ПОСТОВ
+const PostList = ({data, user}) => {
+ 
+  return(
+    <>
+      {data.map((e,i)=> 
+        e.user === user ?
+          <div key={i}>
+            <p>{e.body}</p>
+            <hr/>
+          </div>:
+          null
+        )}
+    </>
+  )
+}
+
+//ФОРМА ДОБАВИТЬ ПОСТЫ
+const PostForm = ({formData,setFormData}) => {
+
+  const user = useAuth().email
+
+  return(
+    <div>
+      <input placeholder='пост' 
+      value={formData.body}
+      onChange = {(e)=>{setFormData({user, body:e.target.value})}}
+      />
+    </div>
+  )
+}
+
+//Функция для стилизации, чтобы не хранить стили в jsx и не перегружать код компонента
+const authStyles = () =>({
+  container:{
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'center',
+    background:'#f5f5f5',
+    height:'100vh'
+  },
+  card:{
+    padding:'30px',
+    borderRadius:'30px',
+    background:'#fff',
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'space-around',
+    height:'100px'
+  }
+})
