@@ -1,0 +1,15 @@
+.vs/
+.idea/
+.git/
+ASP_NET_MVC_GB/obj/
+ASP_NET_MVC_GB/bin/
+TestConsoleApps/
+Tests/TestWPF/
+FakeOffice/bin/
+FakeOffice/obj/
+packages/
+AutofacTests/
+Tests/TestRazor/ReportExamples/bin/
+Tests/TestRazor/ReportExamples/obj/
+FakeOffice/wwwroot/lib/
+node_modules/

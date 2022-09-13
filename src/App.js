@@ -1,11 +1,13 @@
 import  {useEffect, useRef, useState} from 'react';
-import Button from '@mui/material/Button';
+import "./style.scss";
 import PropTypes from "prop-types";
 import './App.css';
+import Register from "./pages/Register";
+
 
 function App() {
 
-  return <Button variant="contained">Hello World</Button>;
+  return (<Register />);
 }
 
 export default App;
