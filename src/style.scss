@@ -78,11 +78,68 @@
     overflow: hidden;
     .sidebar {
       flex: 1;
-     background-color: #3e3c61 ;
+      color : lightgreen ;
+      background-color: #3e3c61 ;
+      .navbar {
+        color: white;
+        display: flex;
+        align-items: revert;
+        background-color: #2f2d52 ;
+        justify-content: space-between;
+        height: 50px;
+        padding: 10px;
+        .logo {
+          font-weight: bold;
+        }
+        .user {
+          display: flex;
+          gap: 10px;
+        }
+        .userChatInfo {
+          span {font-size: 18px; font-weight: bolder; }
+          p {font-size: xxx-large; color : lightgreen;}
+
+        }
+      }
     }
     .chat {
       flex: 2;
+      .chatInfo {
+        height: 50px;
+        background-color: #5d5b8d;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: lightgray;
+        padding: 10px;
+      }
+      .chatIcons {
+        gap:10px;
+        display: flex;
+        img {
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+      .messages {
+        padding: 10px;
+        background-color: #ddddf7;
+        height: calc(100% - 160px);
+      }
+      .inputMessage {
+        height: 50px;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
+      }
+      .send {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
     }
   }
 }
