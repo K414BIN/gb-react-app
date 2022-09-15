@@ -12,8 +12,8 @@ import Home from "./pages/Home";
 function App() {
 
   return (
-     //<Register></Register>
-     <Home></Home>
+     <Register></Register>
+
 
   );
 }
