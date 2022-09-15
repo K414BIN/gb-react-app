@@ -21,7 +21,7 @@ const Search = () => {
                 display : "flex",
                 background :"yellowgreen",
                 color : "white"
-            }} type="search" multiline='false' placeholder='Найти участника чата'></Input>
+            }} type="search" multiLine={false} placeholder='Найти участника чата'></Input>
 
             </div>
                 <div className="userChat" >
