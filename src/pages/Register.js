@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Avatar, Button, IconButton} from "@mui/material";
+import {Avatar, Button} from "@mui/material";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {auth, db, storage} from "../firebase/firebase";
 import { getDownloadURL,ref,uploadBytesResumable } from 'firebase/storage';

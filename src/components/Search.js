@@ -2,7 +2,18 @@ import React, {useContext, useState} from "react";
 
 import {Avatar, Input}from "@mui/material";
 import * as PropTypes from "prop-types";
-import {updateDoc, where, query, collection, getDocs, setDoc, serverTimestamp, doc} from "firebase/firestore";
+import {
+    updateDoc,
+    where,
+    query,
+    collection,
+    getDocs,
+    addDoc,
+    getDoc,
+    serverTimestamp,
+    doc,
+    setDoc
+} from "firebase/firestore";
 import {db} from "../firebase/firebase";
 import {AuthContext} from "../context/AuthContext";
 import {updateProfile} from "firebase/auth";
@@ -10,13 +21,12 @@ import {updateProfile} from "firebase/auth";
 const Search = () => {
 
     const {currentUser} = useContext(AuthContext);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(null);
     const [username, setUsername] = useState(null);
     const [error ,setError] = useState(false);
 
     const handleSearch = async () => {
-
-        const q = query(collection(db, 'users'), where('displayName', '==', username))
+        const q = query(collection(db, "users"), where("displayName", "==", username));
         try {
             const querySnapShot = await getDocs(q);
             querySnapShot.forEach((doc) => {
@@ -34,9 +44,13 @@ const Search = () => {
   const handleSelect = async () => {
         const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
         try {
-            const res = await getDocs(doc(db,"chats",combinedId));
+            const res = await getDoc(doc(db,"chats",combinedId));
             if (!res.exists()) {
-                await  setDoc(doc(db,"chats",combinedId),{messages : []});
+                /* Вот тут должен создаться чат в чатах в firebase !!!*/
+                const newRef = doc(collection(db,"chats"));
+                await setDoc((newRef, combinedId)  ,{
+                    messages: [],
+                });
 
                 await updateDoc(doc(db,"userChats",user.uid),{
                     [combinedId + ".userInfo"]: {
@@ -44,7 +58,7 @@ const Search = () => {
                         displayName: currentUser.displayName,
                         photoURL: currentUser.photoUrl
                     },
-                    [combinedId + ".date"] : serverTimestamp()
+                    [combinedId + ".date"] : serverTimestamp(),
                 })
                 await updateDoc(doc(db,"userChats",currentUser.uid),{
                     [combinedId + ".userInfo"]: {
@@ -59,7 +73,9 @@ const Search = () => {
         catch (e) {
 
         }
-  }
+        setUser(null);
+        setUsername("");
+  };
 
     return (
         <div className="search">

@@ -20,13 +20,13 @@ const Chats = () => {
                 unsub();
             }
         }
-
             currentUser.uid && getChats();
         },[currentUser.uid]);
 
+    console.log(Object.entries(chats));
     const handleSelect = (u) => {
-        dispatch({type :"CHANGE_USER",payload: u})
-    }
+        dispatch({type : "CHANGE_USER", payload: u })
+    };
 
 
     return (

@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth, db, storage} from "../firebase/firebase";
-import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import {doc, setDoc} from "firebase/firestore";
+import {auth} from "../firebase/firebase";
 import { useNavigate , Link} from "react-router-dom";
 
 const Login = () => {
@@ -13,7 +11,6 @@ const Login = () => {
         event.preventDefault();
         const email = event.target[0].value;
         const password = event.target[1].value;
-
 
         try
         {
