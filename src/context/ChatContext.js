@@ -3,11 +3,11 @@ import  { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import {AuthContext} from "./AuthContext";
 
-export  const ChatContext = createContext();
+export  const ChatContext = createContext('');
 
 export  const ChatContextProvider =  ({children}) => {
     const INITIAL_STATE = {
-        chatId:"null",
+        chatId: {},
         user: {}
     }
     const {currentUser} = useContext(AuthContext);
@@ -22,7 +22,9 @@ export  const ChatContextProvider =  ({children}) => {
             default : return state
         }
     }
+
     const [state,dispatch] = useReducer(chatReducer,INITIAL_STATE) ;
+
     return (
         <ChatContext.Provider value={{date:state,dispatch}}>
             { children}

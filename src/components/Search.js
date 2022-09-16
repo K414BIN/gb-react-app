@@ -59,8 +59,6 @@ const Search = () => {
         catch (e) {
 
         }
-
-    
   }
 
     return (
