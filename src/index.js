@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import * as PropTypes from "prop-types";
+import { AuthContextProvider } from "./context/AuthContext";
+import {ChatContextProvider} from "./context/ChatContext";
+
+export const MyDataContext = React.createContext({
+    appVersion: '1.0',
+    author: 'Alexander Kalabin'
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+AuthContextProvider.propTypes = {children: PropTypes.node};
+root.render(
+    <MyDataContext.Provider value={{ appName: 'K414BIN ChAT', appVersion: '2.0', author: 'Alexander Kalabin' }}>
+    <AuthContextProvider>
+        <ChatContextProvider>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </ChatContextProvider>
+    </AuthContextProvider>
+    </MyDataContext.Provider>
+);

@@ -1,0 +1,216 @@
+$darkColor : #2f2d52;
+@mixin mobile {
+  @media screen and (max-width: 480px){
+    @content
+  }
+}
+@mixin laptop {
+  @media screen and (max-width: 1200px){
+    @content
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 768px){
+    @content
+  }
+}
+
+.formContainer {
+  background-color: $darkColor;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    .formWrapper {
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        background-color: white;
+        padding: 20px 60px;
+        display: flex;
+        flex-direction: column;
+      .logo {
+        color : #5d5b8d;
+        font-weight: bold;
+        font-size: 24px;
+
+      }
+      .title {
+        font-size: 12px;
+        color: #5d5b8d;
+      }
+        form {
+          button {
+            color: white;
+            background-color: #7b96ec;
+            padding: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+
+          }
+          display: flex;
+          flex-direction: column;
+          gap : 15px;
+          input {
+            width: 250px;
+            padding: 15px;
+            border: none;
+            border-bottom: 1px solid #a7bcff;
+            &::placeholder {
+              color: rgb(175,175,175);
+            }
+          }
+          label {
+            color: #8da4f1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            img {
+              width: 32px;
+            }
+          }
+        }
+      p {
+        color : #5d5b8d;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+      }
+};
+
+.home {
+  background-color: #a7bcff;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  .container {
+    width: 65%;
+    border: 1px solid white;
+    display: flex;
+    border-radius: 10px;
+    height: 80%;
+    overflow: hidden;
+    @include tablet {
+      width: 90%;
+    }
+    .sidebar {
+      flex: 1;
+      position: relative;
+      color : lightgreen ;
+      background-color: #3e3c61 ;
+      .navbar {
+        color: white;
+        display: flex;
+        align-items: revert;
+        background-color: #2f2d52 ;
+        justify-content: space-between;
+        height: 50px;
+        padding: 10px;
+        .logo {
+          @include tablet {
+            display: none;
+          }
+          font-weight: bold;
+        }
+        .user {
+          display: flex;
+          gap: 10px;
+        }
+        .userChatInfo {
+          span {font-size: 18px; font-weight: bolder; }
+          p {font-size: xxx-large; color : lightgreen;}
+
+        }
+      }
+    }
+    .chat {
+      flex: 2;
+      .chatInfo {
+        height: 50px;
+        background-color: #5d5b8d;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: lightgray;
+        padding: 10px;
+      }
+      .chatIcons {
+        gap:10px;
+        display: flex;
+        img {
+          height: 24px;
+          cursor: pointer;
+        }
+      }
+      .messages {
+        .message {
+          display: flex;
+          margin-bottom: 20px;
+          gap: 20px;
+          .messageInfo {
+            display: flex;
+            color: gray;
+            font-weight: 300 ;
+            flex-direction: column;
+            img {
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+              border-radius: 50%;
+            }
+          }
+          .messageContent {
+            img {
+              width: 50%;
+            }
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            p {
+              max-width: max-content ;
+              border-radius: 0px 10px 10px 10px;
+              padding: 10px 20px;
+              background-color: white;
+            }
+          }
+          &.owner {
+            flex-direction: row-reverse;
+            .messageContent {
+               align-items: flex-end;
+
+                p {
+                    border-radius: 10px 0px 10px 10px;
+                    background-color: #8da4f1;
+                    color: white;
+                }
+            }
+          }
+        }
+        padding: 10px;
+        background-color: #ddddf7;
+        height: calc(100% - 160px);
+        overflow: scroll;
+      }
+      .inputMessage {
+        height: 50px;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+      }
+      .send {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+}
