@@ -4,10 +4,13 @@ import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {auth, db, storage} from "../firebase/firebase";
 import { getDownloadURL,ref,uploadBytesResumable } from 'firebase/storage';
 import {doc ,setDoc } from "firebase/firestore";
+import {Link, useNavigate} from "react-router-dom";
+
 
 const Register = () => {
 
     const [error,setError] = useState(false);
+    const navigate = useNavigate();
 
     const  handleSubmit = async (event) => {
         event.preventDefault();
@@ -37,6 +40,8 @@ const Register = () => {
                          email,
                          photoUrl: downloadURL
                      });
+                     await setDoc(doc(db,"userChats",response.user.uid),{});
+                     navigate("/");
                  });
             });
             
@@ -45,8 +50,8 @@ const Register = () => {
         {
             setError(true);
         }
-
     };
+
     return (
         <div className='formContainer'>
             <div className='formWrapper'>
@@ -67,7 +72,7 @@ const Register = () => {
                     <button>Зарегистрироваться </button>
                     {error && <span>Что-то пошло не так...</span>}
                 </form>
-                <p>Уже зарегистрированы? Вход</p>
+                <p>Уже зарегистрированы? <Link to="/login">Вход</Link></p>
             </div>
         </div>
     );

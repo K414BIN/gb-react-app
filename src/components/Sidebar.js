@@ -10,10 +10,8 @@ const Sidebar = () => {
             <Navbar></Navbar>
             <Search></Search>
             <Chats></Chats>
-
         </div>
-
     );
-}
+};
 
 export default Sidebar;

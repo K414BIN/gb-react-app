@@ -1,17 +1,26 @@
-import React from "react";
-import Cat2 from "../img/alex-nicolopoulos-hxn2HjZHyQE-unsplash.jpg";
-import Cat1 from "../img/jae-park-7GX5aICb5i4-unsplash.jpg";
+import React, {useContext, useEffect, useRef} from "react";
+import {AuthContext} from "../context/AuthContext";
+import {ChatContext} from "../context/ChatContext";
 
-const Message = () => {
+
+const Message = ({message}) => {
+    const ref = useRef();
+    const {currentUser} = useContext(AuthContext);
+    const { data } = useContext(ChatContext);
+
+    useEffect( () =>{
+            ref.current?.scrollIntoView({behavior:"smooth"})
+    },[message]);
+
     return (
-        <div className="message owner">
+        <div ref={ref} className={`message ${message.senderId === currentUser.uid && "owner"}`}>
             <div className="messageInfo">
-              <img alt="" src={Cat1} ></img>
-              <span>just now</span>
+              <img alt="" src={message.senderId === currentUser.uid ? currentUser.photoURL : data.user.photoURL} ></img>
+
+              <span>{currentUser.displayName}</span>
             </div>
             <div className="messageContent">
-            <p>Hello!</p>
-            <img alt="" src={Cat1} ></img>
+            <p>{message.text}</p>
             </div>
         </div>
 
