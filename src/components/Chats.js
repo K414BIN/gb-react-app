@@ -5,7 +5,6 @@ import {ChatContext} from "../context/ChatContext";
 import {AuthContext} from "../context/AuthContext";
 import {db} from "../firebase/firebase";
 
-
 const Chats = () => {
     const {currentUser} = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
@@ -27,7 +26,6 @@ const Chats = () => {
     const handleSelect = (u) => {
         dispatch({type : "CHANGE_USER", payload: u })
     };
-
 
     return (
         <div className="chats">

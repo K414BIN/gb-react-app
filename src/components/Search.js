@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import {db} from "../firebase/firebase";
 import {AuthContext} from "../context/AuthContext";
-import {updateProfile} from "firebase/auth";
+
 
 const Search = () => {
 
@@ -47,7 +47,7 @@ const Search = () => {
             const res = await getDoc(doc(db,"chats",combinedId));
             if (!res.exists()) {
                 /* Вот тут должен создаться чат в чатах в firebase !!!*/
-                const newRef = doc(collection(db,"chats"));
+                const newRef = doc(db,"chats");
                 await setDoc((newRef, combinedId)  ,{
                     messages: [],
                 });
@@ -84,7 +84,7 @@ const Search = () => {
                 display : "flex",
                 background :"yellowgreen",
                 color : "white"
-            }} type="search" onChange ={e=>setUsername(e.target.value)}  onKeyDown = {handleKey} placeholder='Найти участника чата'></Input>
+            }} type="search" value = {username} onChange ={e=>setUsername(e.target.value)}  onKeyDown = {handleKey} placeholder='Найти участника чата'></Input>
 
             </div>
             {error && <span>Нет такого пользователя! </span>}

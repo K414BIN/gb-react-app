@@ -39,7 +39,6 @@ const InputMessage = () => {
         setText('');
     }
 
-
     return (
         <div className="inputMessage">
             <Input onChange={ (e)=> setText(e.target.value)} value={text} type="text"  rows={2} autoFocus={true} fullWidth={true} placeholder='Введите сообщение здесь...'/>
@@ -49,5 +48,4 @@ const InputMessage = () => {
         </div>
     );
 }
-
 export default InputMessage;
