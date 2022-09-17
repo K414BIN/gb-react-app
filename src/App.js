@@ -1,11 +1,9 @@
-import {useContext, useEffect, useRef, useState} from 'react';
+import {useContext}from 'react';
 import "./style.scss";
-import PropTypes from "prop-types";
 import './App.css';
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
 import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import {AuthContext} from "./context/AuthContext";
 

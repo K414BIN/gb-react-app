@@ -1,14 +1,11 @@
 import React, {useContext, useState} from "react";
-
 import {Avatar, Input}from "@mui/material";
-import * as PropTypes from "prop-types";
 import {
     updateDoc,
     where,
     query,
     collection,
     getDocs,
-    addDoc,
     getDoc,
     serverTimestamp,
     doc,
