@@ -8,7 +8,6 @@ const Messages = () => {
     const { data} = useContext(ChatContext);
     const [messages,setMessages] =  useState([]);
 
-
         useEffect(() => {
             const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
                 doc.exists() && setMessages(doc.data().messages);
@@ -17,6 +16,22 @@ const Messages = () => {
                 unsub();
             }
         }, [data.chatId])
+
+    console.log(messages);
+
+    useEffect(() => {
+        if (messages.length > 0) {
+            setTimeout(() => {
+
+                setMessages(() => [
+                    {
+                        text: 'Сообщение отправлено!😊👌',
+
+                    },
+                ]);
+            }, 1500);
+        };
+    }, [setMessages, messages]);
 
     console.log(messages);
 

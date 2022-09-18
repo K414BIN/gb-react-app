@@ -10,8 +10,8 @@ export const ChatContextProvider =  ({ children }) => {
         chatId: "null",
         user: {},
     }
-
-   const chatReducer= ( state = initialState, action ) => {
+/* action неправильно обрабатывается!!! */
+   const chatReducer= ( state = initialState, action="" ) => {
         switch (action.type)
         {
             case "CHANGE_USER":
